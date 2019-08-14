@@ -1,15 +1,14 @@
-# Logrus 中文文档 <img src="http://i.imgur.com/hTeVwmJ.png" width="40" height="40" alt=":walrus:" class="emoji" title=":walrus:"/>&nbsp;[![Build Status](https://travis-ci.org/sirupsen/logrus.svg?branch=master)](https://travis-ci.org/sirupsen/logrus)&nbsp;[![GoDoc](https://godoc.org/github.com/sirupsen/logrus?status.svg)](https://godoc.org/github.com/sirupsen/logrus)
+# Logrus 中文文档
+Logrus <img src="http://i.imgur.com/hTeVwmJ.png" width="40" height="40" alt=":walrus:" class="emoji" title=":walrus:"/>&nbsp;[![Build Status](https://travis-ci.org/sirupsen/logrus.svg?branch=master)](https://travis-ci.org/sirupsen/logrus)&nbsp;[![GoDoc](https://godoc.org/github.com/sirupsen/logrus?status.svg)](https://godoc.org/github.com/sirupsen/logrus)
 
 Logrus 是一个用于 Go (golang) 的结构化日志模块，完全兼容标准的日志库的 API
 
-**看到奇怪的大小写敏感问题？** 在过去，同时导入大写和小写的 Logrus 。由于 Go 包环境的原因，这在社区中引起了一些问题，我们需要一个标准。
+**看到奇怪的大小写敏感问题？** 在过去，可能同时导入大写和小写的 Logrus 。由于 Go 包环境的原因，这在社区中引起了一些问题，我们需要一个标准。
 一些环境遇到了大写变体的问题，因此决定使用小写变体。
 所有使用 `logrus` 的项目都需要使用小写: `github.com/sirupsen/logrus`。任何不是这样的包都应该被更改。
 
-要修复 Glide, 查看 [these
-comments](https://github.com/sirupsen/logrus/issues/553#issuecomment-306591437).
-关于这个问题的深入解释，查看 [this
-comment](https://github.com/sirupsen/logrus/issues/570#issuecomment-313933276).
+要修复 Glide, 查看 [these comments](https://github.com/sirupsen/logrus/issues/553#issuecomment-306591437).
+关于这个问题的深入解释，查看 [this comment](https://github.com/sirupsen/logrus/issues/570#issuecomment-313933276).
 
 在开发中使用漂亮的颜色代码(当附加 TTY 时，否则只是纯文本):
 
@@ -44,7 +43,7 @@ time="2015-03-26T01:27:38-04:00" level=debug msg="Temperature changes" temperatu
 time="2015-03-26T01:27:38-04:00" level=panic msg="It's over 9000!" animal=orca size=9009
 time="2015-03-26T01:27:38-04:00" level=fatal msg="The ice breaks!" err=&{0x2082280c0 map[animal:orca size:9009] 2015-03-26 01:27:38.441574009 -0400 EDT panic It's over 9000!} number=100 omg=true
 ```
-要确保即使附加了 TTY，也会出现这种行为，请将格式化程序设置如下:
+要确保即使在一个 TTY 中，也使用这种 Formatter ，设置 Formatter 如下:
 
 ```go
 	log.SetFormatter(&log.TextFormatter{
@@ -55,11 +54,11 @@ time="2015-03-26T01:27:38-04:00" level=fatal msg="The ice breaks!" err=&{0x20822
 
 #### Logging Method Name
 
-如果希望添加调用方法作为字段，请通过以下方式通知日志记录器：
+如果希望添加一个字段记录被调用是的 method，通过以下方式通知 logger：
 ```go
 log.SetReportCaller(true)
 ```
-这将添加 "method" 为调用者，如下所示:
+这将添加 `method` 字段，如下所示:
 
 ```json
 {"animal":"penguin","level":"fatal","method":"github.com/sirupsen/arcticcreatures.migrate","msg":"a penguin swims by",
@@ -81,7 +80,7 @@ go test -bench=.*CallerTracing
 
 #### Example
 
-使用 Logrus 最简单的方法是简单的包级导出日志程序：
+使用 Logrus 最简单的方法是简单的包级导出 log：
 
 ```go
 package main
@@ -97,7 +96,7 @@ func main() {
 }
 ```
 
-注意，它完全与 stdlib 日志记录器 API 兼容，所以你可以用 `log github.com/sirupsen/logrus` 替换所有的 `log` 导入，现在就有了 Logrus 的灵活性。
+注意，它与 stdlib log API 完全兼容，所以你可以用 `log github.com/sirupsen/logrus` 替换所有的 `log` 导入。
 你可以定制你想要的一切：
 
 ```go
@@ -148,7 +147,7 @@ func main() {
 }
 ```
 
-对于更高级的用法，例如从同一个应用程序记录到多个位置，可以创建 `logrus` 的实例:
+对于更高级的用法，例如从同一个应用程序记录日志到多个位置，可以创建 `logrus` 的实例:
 
 ```go
 package main
@@ -194,14 +193,14 @@ log.WithFields(log.Fields{
 }).Fatal("Failed to send event")
 ```
 
-我们发现，这个 API 迫使你考虑如何产生更有用的日志消息。我们已经经历无数的情况，在日志声明中只添加一个字段可以节省很多时间。
-`WithFields` 调用是可选的。
+我们发现，这个 API 迫使你考虑如何产生更有用的日志消息。我们已经经历无数的情况，在日志声明中添加一个字段可以节省很多时间。
+`WithFields` 调用不是必须的。
 
-一般来说，使用 Logrus 中的任何 `printf`- family 函数都应该被视为应该添加字段的提示，但是，仍然可以使用 Logrus 中的 `printf` - family 函数。
+一般来说，使用 Logrus 中的任何 `printf`- family 函数都该被视为应该添加字段的提示，但是，仍然可以使用 Logrus 中的 `printf` - family 函数。
 
 #### Default Fields
 
-通常，将字段_总是_附加到应用程序的日志声明中或应用程序的一部分是有帮助的。例如，你可能希望始终在请求上下文中记录 `request_id` 和 `user_ip`。
+通常，将字段*总是*附加到应用程序的日志声明中或应用程序的一部分是有帮助的。例如，你可能希望始终在请求上下文中记录 `request_id` 和 `user_ip`。
 而不是在每行都写 `log.WithFields(log.Fields{"request_id": request_id, "user_ip": user_ip})`， 你可以创建一个 `logrus.Entry`:
 
 ```go
@@ -238,14 +237,15 @@ func init() {
   }
 }
 ```
-Note: Syslog hook also support connecting to local syslog (Ex. "/dev/log" or "/var/run/syslog" or "/var/run/log"). For the detail, please check the [syslog hook README](hooks/syslog/README.md).
+注意: Syslog 钩子还支持连接到本地 Syslog(例如。`/dev/log` 或 `/var/run/syslog` 或 `/var/run/log`)。
+更多详情查看 [syslog hook README](docs/syslog/README.md).
 
-A list of currently known of service hook can be found in this wiki [page](https://github.com/sirupsen/logrus/wiki/Hooks)
+目前已知的服务 hooks 列表可以在这个 [wiki page](https://github.com/sirupsen/logrus/wiki/Hooks) 中找到。
 
 
 #### Level logging
 
-Logrus has seven logging levels: Trace, Debug, Info, Warning, Error, Fatal and Panic.
+Logrus 有七个日志等级: Trace, Debug, Info, Warning, Error, Fatal 和 Panic。
 
 ```go
 log.Trace("Something very low level.")
@@ -253,41 +253,36 @@ log.Debug("Useful debugging information.")
 log.Info("Something noteworthy happened!")
 log.Warn("You should probably take a look at this.")
 log.Error("Something failed but I'm not quitting.")
-// Calls os.Exit(1) after logging
+// 输出日志之后，调用 os.Exit(1)
 log.Fatal("Bye.")
-// Calls panic() after logging
+// 输出日志之后，调用 panic()
 log.Panic("I'm bailing.")
 ```
 
-You can set the logging level on a `Logger`, then it will only log entries with
-that severity or anything above it:
+你可以为一个 `Logger` 设置一个日志等级，然后它只会记录对应等级或以上的条目：
 
 ```go
-// Will log anything that is info or above (warn, error, fatal, panic). Default.
+// 默认情况下会记录 info 及以上等级 (warn, error, fatal, panic) 的日志
 log.SetLevel(log.InfoLevel)
 ```
 
-It may be useful to set `log.Level = logrus.DebugLevel` in a debug or verbose
-environment if your application has that.
+设置 `log.Level = logrus.DebugLevel` 在 debug 或 verbose 下是非常有用的。
 
 #### Entries
 
-Besides the fields added with `WithField` or `WithFields` some fields are
-automatically added to all logging events:
+除了使用 `WithField` 或 `WithFields` 添加字段外，有些字段还会自动添加到所有日志事件中：
 
-1. `time`. The timestamp when the entry was created.
-2. `msg`. The logging message passed to `{Info,Warn,Error,Fatal,Panic}` after
-   the `AddFields` call. E.g. `Failed to send event.`
-3. `level`. The logging level. E.g. `info`.
+1. `time`。创建条目时的时间戳。
+2. `msg`。在 `AddFields` 调用之后，日志消息传递给 `Info,Warn,Error,Fatal,Panic}`。
+   例如 `Failed to send event.`
+3. `level`。日志等级。例如 `info`。
 
 #### Environments
 
-Logrus has no notion of environment.
+Logrus 没有环境的概念。
 
-If you wish for hooks and formatters to only be used in specific environments,
-you should handle that yourself. For example, if your application has a global
-variable `Environment`, which is a string representation of the environment you
-could do:
+如果你希望 hooks 和 formatters 只在特定的环境中使用，你需要自己处理它。
+例如，如果你的应有有一个全局变量 `Environment`，这是一个表示环境的字符串，你可以:
 
 ```go
 import (
@@ -306,40 +301,36 @@ init() {
 }
 ```
 
-This configuration is how `logrus` was intended to be used, but JSON in
-production is mostly only useful if you do log aggregation with tools like
-Splunk or Logstash.
+这个配置就是如何使用 `logrus`，但是，JSON 在生产中通常只在使用诸如 Splunk或Logstash 此类的工具进行日
+志聚合时才有用。
 
 #### Formatters
 
-The built-in logging formatters are:
+内建的 formatters:
 
-* `logrus.TextFormatter`. Logs the event in colors if stdout is a tty, otherwise
-  without colors.
-  * *Note:* to force colored output when there is no TTY, set the `ForceColors`
-    field to `true`.  To force no colored output even if there is a TTY  set the
-    `DisableColors` field to `true`. For Windows, see
-    [github.com/mattn/go-colorable](https://github.com/mattn/go-colorable).
-  * When colors are enabled, levels are truncated to 4 characters by default. To disable
-    truncation set the `DisableLevelTruncation` field to `true`.
-  * When outputting to a TTY, it's often helpful to visually scan down a column where all the levels are the same width. Setting the `PadLevelText` field to `true` enables this behavior, by adding padding to the level text.
-  * All options are listed in the [generated docs](https://godoc.org/github.com/sirupsen/logrus#TextFormatter).
-* `logrus.JSONFormatter`. Logs fields as JSON.
-  * All options are listed in the [generated docs](https://godoc.org/github.com/sirupsen/logrus#JSONFormatter).
+* `logrus.TextFormatter`。如果 stdout 是一个 TTY，则使用颜色记录事件，否则没有颜色。
+  * *Note:* 在没有 TTY 是强制使用带颜色的输出，设置 `ForceColors` 字段为 `true`。
+    在 TTY 中强制不使用带颜色的输出，设置 `DisableColors` 字段为 `true`。
+    对于 windows，查看 [github.com/mattn/go-colorable](https://github.com/mattn/go-colorable)。
+  * 启用 colors 后，默认情况下 levels 被截断为 4 个字符。 禁用截断设置 `DisableLevelTruncation`
+    字段为 `true`。在所有层的宽度都相同的情况下，直观地扫描列通常是有帮助的。
+  * 当输出到 TTY 时, 所有 levels 的宽度都相同对于直观地扫描列通常是有帮助的。设置 `PadLevelText` 字段
+    为 `true`, 通过向水平文本添加填充，来启用该行为。
+  * [generated docs](https://godoc.org/github.com/sirupsen/logrus#TextFormatter) 列出了所有选项。
+* `logrus.JSONFormatter`. 以 JSON 格式记录。
+  * [generated docs](https://godoc.org/github.com/sirupsen/logrus#JSONFormatter) 列出了所有选项。
 
-Third party logging formatters:
+第三方的 formatters:
 
-* [`FluentdFormatter`](https://github.com/joonix/log). Formats entries that can be parsed by Kubernetes and Google Container Engine.
-* [`GELF`](https://github.com/fabienm/go-logrus-formatters). Formats entries so they comply to Graylog's [GELF 1.1 specification](http://docs.graylog.org/en/2.4/pages/gelf.html).
-* [`logstash`](https://github.com/bshuster-repo/logrus-logstash-hook). Logs fields as [Logstash](http://logstash.net) Events.
-* [`prefixed`](https://github.com/x-cray/logrus-prefixed-formatter). Displays log entry source along with alternative layout.
-* [`zalgo`](https://github.com/aybabtme/logzalgo). Invoking the P͉̫o̳̼̊w̖͈̰͎e̬͔̭͂r͚̼̹̲ ̫͓͉̳͈ō̠͕͖̚f̝͍̠ ͕̲̞͖͑Z̖̫̤̫ͪa͉̬͈̗l͖͎g̳̥o̰̥̅!̣͔̲̻͊̄ ̙̘̦̹̦.
-* [`nested-logrus-formatter`](https://github.com/antonfisher/nested-logrus-formatter). Converts logrus fields to a nested structure.
+* [`FluentdFormatter`](https://github.com/joonix/log). 格式化条目以便 Kubernetes 和 Google Container 引擎解析。
+* [`GELF`](https://github.com/fabienm/go-logrus-formatters). 格式化条目，使它们符合 Graylog 的格式 [GELF 1.1 specification](http://docs.graylog.org/en/2.4/pages/gelf.html)。
+* [`logstash`](https://github.com/bshuster-repo/logrus-logstash-hook). 将字段记录为 [Logstash](http://logstash.net) Envents.
+* [`prefixed`](https://github.com/x-cray/logrus-prefixed-formatter). 显示日志条目源。
+* [`zalgo`](https://github.com/aybabtme/logzalgo)
+* [`nested-logrus-formatter`](https://github.com/antonfisher/nested-logrus-formatter). 将 logrus 字段转换为嵌套结构。
 
-You can define your formatter by implementing the `Formatter` interface,
-requiring a `Format` method. `Format` takes an `*Entry`. `entry.Data` is a
-`Fields` type (`map[string]interface{}`) with all your fields as well as the
-default ones (see Entries section above):
+你可以通过实现 `Formatter` interface 来定义自己的 Formatter，需要提供 `Format` 方法。
+`Format`接受一个 `*Entry`。`entry.Data` 是一个 `Fields` 类型 (`map[string]interface{}`) 包含所有字段和默认字段(参见上面的 Entries 部分):
 
 ```go
 type MyJSONFormatter struct {
@@ -361,7 +352,7 @@ func (f *MyJSONFormatter) Format(entry *Entry) ([]byte, error) {
 
 #### Logger as an `io.Writer`
 
-Logrus can be transformed into an `io.Writer`. That writer is the end of an `io.Pipe` and it is your responsibility to close it.
+Logrus 可以转换成一个 `io.Writer`。 writer 是一个 `io.Pipe` 的结束，并且你需要关闭它。
 
 ```go
 w := logger.Writer()
@@ -374,10 +365,9 @@ srv := http.Server{
 }
 ```
 
-Each line written to that writer will be printed the usual way, using formatters
-and hooks. The level for those entries is `info`.
+被写入 writer 的每一行会以一般的方式打印出来，使用 formatters 和 hooks。这些条目的级别是 `info`。
 
-This means that we can override the standard library logger easily:
+这意味着我们可以轻易的覆盖标准库的 log:
 
 ```go
 logger := logrus.New()
@@ -391,9 +381,8 @@ log.SetOutput(logger.Writer())
 
 #### Rotation
 
-Log rotation is not provided with Logrus. Log rotation should be done by an
-external program (like `logrotate(8)`) that can compress and delete old log
-entries. It should not be a feature of the application-level logger.
+Logrus 并没有提供 Log rotation。Log rotation 需要一个外部的程序完成 (比如 `logrotate(8)`) 可以压缩和删除旧日志条目。
+它不应该是应用程序级 logger 的特性。
 
 #### Tools
 
@@ -404,10 +393,10 @@ entries. It should not be a feature of the application-level logger.
 
 #### Testing
 
-Logrus has a built in facility for asserting the presence of log messages. This is implemented through the `test` hook and provides:
+Logrus 有一个内置的工具，用于断言日志消息的存在。这是通过 `test` hook 实现的，并提供:
 
-* decorators for existing logger (`test.NewLocal` and `test.NewGlobal`) which basically just add the `test` hook
-* a test logger (`test.NewNullLogger`) that just records log messages (and does not output any):
+* 现有的 logger 的装饰器 (`test.NewLocal` 和 `test.NewGlobal`) 只是添加 `test` hook
+* 一个测试的 logger (`test.NewNullLogger`) 只记录日志消息 (并且不做任何输出):
 
 ```go
 import(
@@ -432,12 +421,10 @@ func TestSomething(t*testing.T){
 
 #### Fatal handlers
 
-Logrus can register one or more functions that will be called when any `fatal`
-level message is logged. The registered handlers will be executed before
-logrus performs a `os.Exit(1)`. This behavior may be helpful if callers need
-to gracefully shutdown. Unlike a `panic("Something went wrong...")` call which can be intercepted with a deferred `recover` a call to `os.Exit(1)` can not be intercepted.
-
-```
+Logrus 可以注册一个或多个函数，这些函数将在 `fatal` 级别的日志记录时时被调用。
+注册的函数会在 logrus 执行  `os.Exit(1)` 之前调用。调用者需要优雅的 shutdown 时很有用。
+与调用一个 `panic("Something went wrong...")` 不同， `panic("Something went wrong...")` 可以通过延迟的 `recover` 拦截，对 `os.Exit(1)` 的调用，不能拦截。
+```go
 ...
 handler := func() {
   // gracefully shutdown something...
@@ -448,17 +435,17 @@ logrus.RegisterExitHandler(handler)
 
 #### Thread safety
 
-By default, Logger is protected by a mutex for concurrent writes. The mutex is held when calling hooks and writing logs.
-If you are sure such locking is not needed, you can call logger.SetNoLock() to disable the locking.
+默认情况下，Logger 受以个 mutex 的保护，用于并发写操作。这个 mutex 在调用 hook 和写入日志时被持有。
+如果确定不需要这样的锁，可以调用 `log .SetNoLock()` 来禁用锁。
 
-Situation when locking is not needed includes:
+不需要锁的情况:
 
-* You have no hooks registered, or hooks calling is already thread-safe.
+* 你没有注册 hooks，或者调用 hook 已经是线程安全的。
 
-* Writing to logger.Out is already thread-safe, for example:
+* 写入 `logger.Out` 已经是线程安全的, 例如:
 
-  1) logger.Out is protected by locks.
+  1) `logger.Out` 已经别锁保护。
 
-  2) logger.Out is a os.File handler opened with `O_APPEND` flag, and every write is smaller than 4k. (This allow multi-thread/multi-process writing)
+  2) `logger.Out` 是一个通过标志 `O_APPEND` 打开的 `os.File` handler, 并且 每次写入都小于 4k. (这允许 多线程/多进程 写)
 
-     (Refer to http://www.notthewizard.com/2014/06/17/are-files-appends-really-atomic/)
+     (参考 http://www.notthewizard.com/2014/06/17/are-files-appends-really-atomic/)

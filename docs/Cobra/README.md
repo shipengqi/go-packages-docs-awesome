@@ -70,7 +70,7 @@ Cobra 支持:
 * 为你的应用程序自动生成 man pages
 * 命令别名，以便可以在不破坏它们的情况下进行更改
 * 灵活的定义你自己的帮助，用法等。
-* 可选择与 [viper]（http://github.com/spf13/viper）紧密集成，用于 12-factor 应用
+* 可选择与 [viper](http://github.com/spf13/viper)紧密集成，用于 12-factor 应用
 
 # Concepts
 
