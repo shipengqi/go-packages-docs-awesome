@@ -1,11 +1,11 @@
 # Cobra 中文文档
-Cobra 中文文档，本文档基于[cobra](https://github.com/spf13/cobra)官方文档。不定期更新。
+Cobra 中文文档，本文档基于 [cobra](https://github.com/spf13/cobra) 官方文档。不定期更新。
 
 ![cobra logo](https://cloud.githubusercontent.com/assets/173412/10886352/ad566232-814f-11e5-9cd0-aa101788c117.png)
 
-Cobra 既是一个创建强大的现代CLI应用程序的库，也是一个生成应用和命令文件的程序。
+Cobra 既是一个创建强大的现代 CLI 应用程序的库，也是一个生成应用和命令文件的程序。
 
-许多最广泛使用的Go项目都是使用Cobra构建的，包括:
+许多最广泛使用的 Go 项目都是使用 Cobra 构建的，包括:
 
 * [Kubernetes](http://kubernetes.io/)
 * [Hugo](http://gohugo.io)
@@ -53,42 +53,42 @@ Cobra 既是一个创建强大的现代CLI应用程序的库，也是一个生�
 
 # Overview
 
-Cobra一个提供了简单的接口，可以创建类似`git`和`go tools`的强大的现代CLI接口的库。
+Cobra 是一个提供了简单的接口，可以创建类似 `git` 和 `go tools` 的强大的现代 CLI 接口的库。
 
-Cobra也是一个生成应用脚手架的应用程序，快速开发基于Cobra的应用程序。
+Cobra 也是一个生成应用脚手架的应用程序，快速开发基于 Cobra 的应用程序。
 
 Cobra 支持:
-* 基于子命令的简易CLI: `app server`, `app fetch`等。
-* 完全符合POSIX标准
+* 基于子命令的简易 CLI: `app server`, `app fetch` 等。
+* 完全符合 POSIX 标准
 * 嵌套的子命令
 * 全局，本地和级联标志
-* 轻松生成应用程序 & 用`cobra init appname`命令 & `cobra add cmdname`
+* `cobra init appname` 和 `cobra add cmdname` 命令轻松生成应用程序和命令
 * 智能化建议 (`app srver`... did you mean `app server`?)
-* 自动生成命令和标志的`help`
-* 自动帮助标志识别`-h`，`--help`等。
+* 自动生成命令和标志的 `help`
+* 自动帮助标志识别 `-h`，`--help` 等。
 * 为你的应用程序自动生成 bash autocomplete
 * 为你的应用程序自动生成 man pages
 * 命令别名，以便可以在不破坏它们的情况下进行更改
 * 灵活的定义你自己的帮助，用法等。
-* 可选择与[viper]（http://github.com/spf13/viper）紧密集成，用于 12-factor 应用
+* 可选择与 [viper]（http://github.com/spf13/viper）紧密集成，用于 12-factor 应用
 
 # Concepts
 
-Cobra建立在**Commands**，**Args**和**Flags**的结构之上。
+Cobra 建立在 **Commands**，**Args** 和 **Flags** 的结构之上。
 
-**Commands**代表动作，**Args**代表事物，**Flags**是这些动作的修饰符。
+**Commands** 代表动作，**Args** 代表事物，**Flags** 是这些动作的修饰符。
 
 最好的应用程序在使用时会像句子一样读取。 用户会知道如何使用该应用程序，因为他们将原生地了解如何使用它。
 
-要遵循的模式是`APPNAME VERB NOUN --ADJECTIVE`。 或`APPNAME COMMAND ARG --FLAG`
+要遵循的模式是 `APPNAME VERB NOUN --ADJECTIVE`。 或 `APPNAME COMMAND ARG --FLAG`
 
 一些好的现实的例子可以更好地说明这一点。
 
-下面的例子，'server'是一个命令，'port'是一个标志:
+下面的例子，`server` 是一个命令，`port` 是一个标志:
 ```bash
 hugo server --port=1313
 ```
-在这个命令中，我们告诉Git只克隆这个url地址。
+在这个命令中，我们告诉 Git 只克隆这个 url 地址。
 ```bash
 git clone URL --bare
 ```
@@ -96,21 +96,21 @@ git clone URL --bare
 
 命令是应用程序的中心点。应用程序支持的每个交互都将包含在命令中。命令可以有子命令并可选择运行一个动作。
 
-在上面的例子中，'server'就是一个命令。
+在上面的例子中，`server` 就是一个命令。
 
 [更多关于 cobra.Command](https://godoc.org/github.com/spf13/cobra#Command)
 
 ## Flags
 
-标志是一种修改命令行为的方法。Cobra完全符合POSIX标准以及Go [flag package](https://golang.org/pkg/flag/)。
-Cobra命令可以定义持久保存到子命令和标志的标志，这些命令和标志仅对该命令可用。
+标志是一种修改命令行为的方法。Cobra 完全符合 POSIX 标准以及 Go [flag package](https://golang.org/pkg/flag/)。
+Cobra 命令可以定义持久保存到子命令和标志的标志，这些命令和标志仅对该命令可用。
 
-在上面的例子中，'port'是一个标志。
+在上面的例子中，`port` 是一个标志。
 
-标志功能由[pflag library](https://github.com/spf13/pflag)提供，是 flag 库的一个分支，它在添加POSIX合规性时保持相同的接口。
+标志功能由 [pflag library](https://github.com/spf13/pflag) 提供，是 flag 库的一个分支，它在添加 POSIX 合规性时保持相同的接口。
 
 # Installing
-Cobra 使用很简单，首先，使用`go get`安装最新的版本。此命令将安装`cobra`生成器可执行文件以及库及其依赖项：
+Cobra 使用很简单，首先，使用 `go get` 安装最新的版本。此命令将安装 `cobra` 生成器可执行文件以及库及其依赖项：
 ```bash
 go get -u github.com/spf13/cobra/cobra
 ```
@@ -122,7 +122,7 @@ import "github.com/spf13/cobra"
 
 # Getting Started
 
-虽然欢迎提供自己的组织, 但通常基于Cobra的应用程序将遵循以下组织结构:
+虽然欢迎提供自己的组织, 但通常基于 Cobra 的应用程序将遵循以下组织结构:
 
 ```
   ▾ appName/
@@ -134,7 +134,7 @@ import "github.com/spf13/cobra"
       main.go
 ```
 
-在一个 Cobra 应用里, 通常这个`main.go`文件仅仅只有一个目的：初始化 Cobra。
+在一个 Cobra 应用里, 通常这个 `main.go` 文件仅仅只有一个目的：初始化 Cobra。
 
 ```go
 package main
@@ -156,13 +156,13 @@ Cobra 提供了自己的程序，可以创建你的应用程序并添加想要�
 
 ## Using the Cobra Library
 
-要手动实现Cobra，需要创建一个空的`main.go`文件和一个`rootCmd`文件。你可以选择根据需要提供其他命令。
+要手动实现 Cobra，需要创建一个空的 `main.go` 文件和一个 `rootCmd` 文件。你可以选择根据需要提供其他命令。
 
 ### Create rootCmd
 
 Cobra 不需要任何特殊的构造函数。只需创建命令即可。
 
-理想情况下，你将它放在`app/cmd/root.go`:
+理想情况下，你将它放在 `app/cmd/root.go`:
 
 ```go
 var rootCmd = &cobra.Command{
@@ -184,7 +184,7 @@ func Execute() {
 }
 ```
 
-还可以在`init()`函数中定义标志和处理配置。
+还可以在 `init()` 函数中定义标志和处理配置。
 
 例如`cmd/root.go`:
 
@@ -239,7 +239,7 @@ func initConfig() {
 
 ### Create your main.go
 
-使用root命令，需要让`main`函数执行它。为了清楚起见，应该在`root`上运行`Execute`，尽管可以在任何命令上调用它。
+使用 `root` 命令，需要让 `main` 函数执行它。为了清楚起见，应该在 `root` 上运行 `Execute`，尽管可以在任何命令上调用它。
 
 在一个 Cobra 应用里, 通常这个`main.go`文件仅仅只有一个目的：初始化 Cobra。
 
@@ -257,9 +257,9 @@ func main() {
 
 ### Create additional commands
 
-可以定义其他命令，通常每个命令都在`cmd/`目录中给出自己的文件。
+可以定义其他命令，通常每个命令都在 `cmd/` 目录中给出自己的文件。
 
-如果要创建版本命令，可以创建`cmd/version.go`并使用以下内容填充它
+如果要创建版本命令，可以创建 `cmd/version.go` 并使用以下内容填充它
 
 ```go
 package cmd
@@ -301,7 +301,7 @@ var Source string
 
 ### Persistent Flags
 
-标志可以是“持久的”，这意味着该标志可用于它所分配的命令以及该命令下的每个命令。对于全局标志，在`root`上分配标志作为持久标志。
+标志可以是“持久的”，这意味着该标志可用于它所分配的命令以及该命令下的每个命令。对于全局标志，在 `root` 上分配标志作为持久标志。
 
 ```go
 rootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
@@ -317,8 +317,8 @@ rootCmd.Flags().StringVarP(&Source, "source", "s", "", "Source directory to read
 
 ### Local Flag on Parent Commands
 
-默认情况下，Cobra 仅解析目标命令上的本地标志，忽略父命令上的任何本地标志。通过启用`Command.TraverseChildren`，
-Cobra将在执行目标命令之前解析每个命令上的本地标志。
+默认情况下，Cobra 仅解析目标命令上的本地标志，并且忽略父命令上的任何本地标志。通过启用 `Command.TraverseChildren`，
+Cobra 将在执行目标命令之前解析每个命令上的本地标志。
 
 ```go
 command := cobra.Command{
@@ -329,7 +329,7 @@ command := cobra.Command{
 
 ### Bind Flags with Config
 
-你也可以用[viper](https://github.com/spf13/viper)绑定标志:
+你也可以用 [viper](https://github.com/spf13/viper) 绑定标志:
 ```go
 var author string
 
@@ -339,14 +339,14 @@ func init() {
 }
 ```
 
-在这个例子中持久标志`author`被`viper`绑定了。
-**注意**, 当用户没有提供`--author`标志时，变量`author`不会被设置为 config 的值。
+在这个例子中持久标志 `author` 被 `viper` 绑定了。
+**注意**, 当用户没有提供 `--author` 标志时，变量 `author` 不会被设置为 config 的值。
 
 更多参考 [viper documentation](https://github.com/spf13/viper#working-with-flags).
 
 ### Required flags
 
-标志默认是可选的。如果希望命令在未设置标志时报告错误，将其设置为`required`:
+标志默认是可选的。如果希望命令在未设置标志时报告错误，将其设置为 `required`:
 ```go
 rootCmd.Flags().StringVarP(&Region, "region", "r", "", "AWS region (required)")
 rootCmd.MarkFlagRequired("region")
@@ -354,17 +354,17 @@ rootCmd.MarkFlagRequired("region")
 
 ## Positional and Custom Arguments
 
-可以使用`Command`的`Args`字段指定位置参数的验证。
+可以使用 `Command` 的 `Args` 字段指定位置参数的验证。
 
 内置以下验证器:
 
 - `NoArgs` - 如果存在任何位置参数，该命令将报告错误。
 - `ArbitraryArgs` - 该命令将接受任何参数。
-- `OnlyValidArgs` - 如果有任何位置参数不在`Command`的`ValidArgs`字段中，该命令将报告错误。
-- `MinimumNArgs(int)` - 如果没有至少N个位置参数，该命令将报告错误。
-- `MaximumNArgs(int)` - 如果有多于N个位置参数，该命令将报告错误。
-- `ExactArgs(int)` - 如果没有确切的N位置参数，该命令将报告错误。
-- `ExactValidArgs(int)` - 如果没有正确的N位置参数，或者如果有任何位置参数不在`Command`的`ValidArgs`字段中，命令将报告并报错
+- `OnlyValidArgs` - 如果有任何位置参数不在 `Command` 的 `ValidArgs` 字段中，该命令将报告错误。
+- `MinimumNArgs(int)` - 如果没有至少 N 个位置参数，该命令将报告错误。
+- `MaximumNArgs(int)` - 如果有多于 N 个位置参数，该命令将报告错误。
+- `ExactArgs(int)` - 如果没有确切的 N 位置参数，该命令将报告错误。
+- `ExactValidArgs(int)` - 如果没有正确的 N 位置参数，或者如果有任何位置参数不在 `Command` 的 `ValidArgs` 字段中，命令将报告并报错
 - `RangeArgs(min, max)` - 如果参数的数量不在预期参数的最小和最大数量之间，则该命令将报告错误。
 
 一个设置自定义验证器的例子:
@@ -389,8 +389,8 @@ var cmd = &cobra.Command{
 
 ## Example
 
-下面的例子，我们定义了三个命令. 两个位于顶层，一个（cmdTimes）是顶级命令之一的子级。在这种情况下，root不可执行，这意味着需要子命令。
-这是通过不为'rootCmd'提供'Run'来实现的。
+下面的例子，我们定义了三个命令. 两个位于顶层，一个（cmdTimes）是顶级命令之一的子级。在这种情况下，`root` 不可执行，这意味着需要子命令。
+这是通过不为 `rootCmd` 提供 `Run` 来实现的。
 
 我们只为一个命令定义了一个标志。
 
@@ -412,8 +412,7 @@ func main() {
   var cmdPrint = &cobra.Command{
     Use:   "print [string to print]",
     Short: "Print anything to the screen",
-    Long: `print is for printing anything back to the screen.
-For many years people have printed back to the screen.`,
+    Long: `print is for printing anything back to the screen.For many years people have printed back to the screen.`,
     Args: cobra.MinimumNArgs(1),
     Run: func(cmd *cobra.Command, args []string) {
       fmt.Println("Print: " + strings.Join(args, " "))
@@ -423,8 +422,7 @@ For many years people have printed back to the screen.`,
   var cmdEcho = &cobra.Command{
     Use:   "echo [string to echo]",
     Short: "Echo anything to the screen",
-    Long: `echo is for echoing anything back.
-Echo works a lot like print, except it has a child command.`,
+    Long: `echo is for echoing anything back.Echo works a lot like print, except it has a child command.`,
     Args: cobra.MinimumNArgs(1),
     Run: func(cmd *cobra.Command, args []string) {
       fmt.Println("Print: " + strings.Join(args, " "))
@@ -434,8 +432,7 @@ Echo works a lot like print, except it has a child command.`,
   var cmdTimes = &cobra.Command{
     Use:   "times [# times] [string to echo]",
     Short: "Echo anything to the screen more times",
-    Long: `echo things multiple times back to the user by providing
-a count and a string.`,
+    Long: `echo things multiple times back to the user by providinga count and a string.`,
     Args: cobra.MinimumNArgs(1),
     Run: func(cmd *cobra.Command, args []string) {
       for i := 0; i < echoTimes; i++ {
@@ -453,11 +450,12 @@ a count and a string.`,
 }
 ```
 
-更多大型应用程序的更完整示例，请查看[Hugo](http://gohugo.io/).
+更多大型应用程序的更完整示例，请查看 [Hugo](http://gohugo.io/).
 
 ## Help Command
 
-当你有子命令时，Cobra 会自动为应用程序添加一个帮助命令。当用户运行`app help`时会调用此方法。此外，帮助还将支持所有其他命令作为输入。比方说，你有一个叫做`create`的命令没有任何额外配置;当`app help create`被调用时，Cobra将工作。每个命令都会自动添加`--help`标志。
+当你有子命令时，Cobra 会自动为应用程序添加一个帮助命令。当用户运行 `app help` 时会调用此方法。此外，帮助还将支持所有其他命令作为输入。
+比方说，你有一个叫做 `create` 的命令没有任何额外配置;当 `app help create` 被调用时，Cobra 将工作。每个命令都会自动添加 `--help` 标志。
 
 ### Example
 
@@ -503,7 +501,7 @@ cmd.SetHelpTemplate(s string)
 
 ## Usage Message
 
-当用户提供无效标志或无效命令时，Cobra会通过向用户显示`usage`来做出响应。
+当用户提供无效标志或无效命令时，Cobra 会通过向用户显示 `usage` 来做出响应。
 
 ### Example
 可以从上面的帮助中认识到这一点。那是因为默认帮助将用法嵌入其输出的一部分。
@@ -528,7 +526,7 @@ Flags:
 Use "cobra [command] --help" for more information about a command.
 ```
 ### Defining your own usage
-可以提供自己的 usage 函数或模板供Cobra使用。与帮助一样，函数和模板可以通过公共方法覆盖：
+可以提供自己的 `usage` 函数或模板供 Cobra 使用。与帮助一样，函数和模板可以通过公共方法覆盖：
 
 ```go
 cmd.SetUsageFunc(f func(*Command) error)
@@ -537,12 +535,13 @@ cmd.SetUsageTemplate(s string)
 
 ## Version Flag
 
-如果在`root`命令上设置了`Version`字段，Cobra会添加顶级`--version`标志。
-使用`--version`标志运行应用程序会使用`Version`模板将版本打印到 stdout。可以使用`cmd.SetVersionTemplate（s string）函数自定义模板。
+如果在 `root` 命令上设置了 `Version` 字段，Cobra 会添加顶级 `--version` 标志。
+使用 `--version` 标志运行应用程序会使用 `Version` 模板将版本打印到 stdout。可以使用 `cmd.SetVersionTemplate(s string)` 函数自定义模板。
 
 ## PreRun and PostRun Hooks
 
-可以在命令的主`Run`函数之前或之后运行函数。`PersistentPreRun`和`PreRun`函数将在`Run`之前执行。`PersistentPostRun`和`PostRun`将在`Run`之后执行。如果他们没有声明自己的`Persistent*Run`函数将由子项继承。这些函数按以下顺序运行:
+可以在命令的主 `Run` 函数之前或之后运行函数。`PersistentPreRun` 和 `PreRun` 函数将在 `Run` 之前执行。`PersistentPostRun`
+和 `PostRun` 将在 `Run` 之后执行。如果他们没有声明自己的 `Persistent*Run` 函数将由子项继承。这些函数按以下顺序运行:
 
 - `PersistentPreRun`
 - `PreRun`
@@ -550,7 +549,7 @@ cmd.SetUsageTemplate(s string)
 - `PostRun`
 - `PersistentPostRun`
 
-下面是使用所有这些功能的两个命令的示例。执行子命令时，它将运行root命令的`PersistentPreRun`，但不运行root命令的`PersistentPostRun`:
+下面是使用所有这些功能的两个命令的示例。执行子命令时，它将运行 root 命令的 `PersistentPreRun`，但不运行 root 命令的 `PersistentPostRun`:
 
 ```go
 package main
@@ -627,7 +626,7 @@ Inside subCmd PersistentPostRun with args: [arg1 arg2]
 
 ## Suggestions when "unknown command" happens
 
-当“unknown command”错误发生时，Cobra将自动打印建议。当错字发生时，这使得Cobra的行为与`git`命令类似。例如:
+当 "unknown command" 错误发生时，Cobra 将自动打印建议。当错字发生时，这使得 Cobra 的行为与 `git` 命令类似。例如:
 
 ```bash
 $ hugo srever
@@ -639,7 +638,8 @@ Did you mean this?
 Run 'hugo --help' for usage.
 ```
 
-根据注册的每个子命令自动建议并使用[Levenshtein distance](http://en.wikipedia.org/wiki/Levenshtein_distance)实现。每个匹配最小距离为2（忽略大小写）的注册命令将显示为建议。
+根据注册的每个子命令自动建议并使用 [Levenshtein distance](http://en.wikipedia.org/wiki/Levenshtein_distance) 实现。
+每个匹配最小距离为 2（忽略大小写）的注册命令将显示为建议。
 
 如果需要在命令中禁用建议或调整字符串距离，使用:
 
@@ -653,7 +653,7 @@ or
 command.SuggestionsMinimumDistance = 1
 ```
 
-你还可以使用`SuggestFor`属性显式设置要为其指定命令的名称。这允许建议在字符串距离方面不接近的字符串，但在你的命令集和某些你不想要别名的字符串中有意义。例如:
+你还可以使用 `SuggestFor` 属性显式设置要为其指定命令的名称。这允许建议在字符串距离方面不接近的字符串，但在你的命令集和某些你不想要别名的字符串中有意义。例如:
 
 ```
 $ kubectl remove
@@ -667,15 +667,20 @@ Run 'kubectl help' for usage.
 
 ## Generating documentation for your command
 
-Cobra可以按以下格式生成基于子命令，标志等的文档：
+Cobra 可以按以下格式生成基于子命令，标志等的文档：
 
-- [Markdown](doc/md_docs.md)
-- [ReStructured Text](doc/rest_docs.md)
-- [Man Page](doc/man_docs.md)
+- [Markdown](docs/md_docs.md)
+- [ReStructured Text](docs/rest_docs.md)
+- [Man Page](docs/man_docs.md)
 
 ## Generating bash completions
 
-Cobra可以生成 bash-completion 文件。如果向命令添加更多信息，这些 Completions 功能可以非常强大且灵活。  阅读更多[Bash Completions](bash_completions.md).
+Cobra 可以生成 `bash-completion` 文件。如果向命令添加更多信息，这些 Completions 功能可以非常强大且灵活。
+阅读更多关于 [Bash Completions](docs/bash_completions.md).
+
+## Generating zsh completions
+
+Cobra 可以生成 `zsh-completion`。阅读更多关于 [Zsh Completions](docs/zsh_completions.md).
 
 # Contributing
 

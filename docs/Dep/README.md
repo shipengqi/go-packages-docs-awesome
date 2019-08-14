@@ -1,5 +1,5 @@
 # Dep 中文文档
-Dep 中文文档，本文档基于[dep](https://golang.github.io/dep/)官方文档。不定期更新。
+Dep 中文文档，本文档基于 [dep](https://golang.github.io/dep/) 官方文档。不定期更新。
 
 
 <p align="center"><img src="docs/images/DigbyShadows.png" width="360"></p>
@@ -19,27 +19,20 @@ Dep 中文文档，本文档基于[dep](https://golang.github.io/dep/)官方文�
   - [卸载](./docs/guides/uninstalling.md)
 - 参考
   - [模型和机制](docs/references/ensure_mechanics.md)
-  - [故障模式](docs/references/failure_modes.md)
-  - [求解器](./docs/references/the_solver.md)
   - [Import Path Deduction](./docs/references/deduction.md)
-  - [Gopkg.toml](docs/references/Gopkg.toml.md)
-  - [Gopkg.lock](docs/references/Gopkg.lock.md)
-  - [FAQ](docs/references/FAQ.md)
-  - [环境变量](docs/references/env_vars.md)
-  - [术语](docs/references/glossary.md)
 
 ## Dep
 
-`dep`是 Go 的依赖管理工具。需要 Go 1.9 或更新版本才能编译。
+`dep` 是 Go 的依赖管理工具。需要 Go 1.9 或更新版本才能编译。
 
-`dep`是"官方实验"。Go 工具链，从 1.11 开始，（通过实验）采用了一种与`dep`明显不同的方法。结果是我们会继续开发`dep`，但是，考察与开发 dep 的工作主要作为之后
+`dep` 是"官方实验"。Go 工具链，从 1.11 开始，（通过实验）采用了一种与 `dep` 明显不同的方法。结果是我们会继续开发 `dep`，但是，考察与开发 dep 的工作主要作为之后
 开发工具链中，版本化行为的替代原型。
 
-`dep`相关指南和参考资料，查看[文档](https://golang.github.io/dep)。
+`dep` 相关指南和参考资料，查看 [文档](https://golang.github.io/dep)。
 
 ## 安装
 
-强烈建议使用一个已经发布的版本。可用的二进制文件在[releases](https://github.com/golang/dep/releases)页面。
+强烈建议使用一个已经发布的版本。可用的二进制文件在 [releases](https://github.com/golang/dep/releases) 页面。
 
 在 MacOS 上，可以使用 Homebrew 安装或升级到最新发布的版本:
 
@@ -48,17 +41,17 @@ $ brew install dep
 $ brew upgrade dep
 ```
 
-在其他平台上，可以使用`install.sh`脚本:
+在其他平台上，可以使用 `install.sh` 脚本:
 
 ```sh
 $ curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 ```
 
-默认情况下，它会安装到你的`$GOPATH/bin`目录，或你使用`INSTALL_DIRECTORY`环境变量指定的任何的其他目录。
+默认情况下，它会安装到你的 `$GOPATH/bin` 目录，或你使用 `INSTALL_DIRECTORY` 环境变量指定的任何的其他目录。
 
 如果你的平台不受支持，需要手动构建它或让我们的团队知道，我们会考虑将你的平台添加到发布版本中。
 
-如果你对 hacking `dep`感兴趣，你可以通过`go get`来安装:
+如果你对 hacking `dep` 感兴趣，你可以通过 `go get` 来安装:
 
 ```sh
 go get -u github.com/golang/dep/cmd/dep
