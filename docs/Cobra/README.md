@@ -549,6 +549,9 @@ cmd.SetUsageTemplate(s string)
 - `PostRun`
 - `PersistentPostRun`
 
+**注意：父级的 `PreRun` 只会在父级命令运行时调用，子命令时不会调用的。**
+运行 `hectl detect` 时，子命令 `detect` 运行并不会调用父级 `hectl` 的 `PreRun` 函数。
+
 下面是使用所有这些功能的两个命令的示例。执行子命令时，它将运行 root 命令的 `PersistentPreRun`，但不运行 root 命令的 `PersistentPostRun`:
 
 ```go
