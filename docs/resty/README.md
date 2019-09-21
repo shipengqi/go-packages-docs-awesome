@@ -1,7 +1,7 @@
 <p align="center">
 <h1 align="center">Resty 中文文档</h1>
-<p align="center">Simple HTTP and REST client library for Go (inspired by Ruby rest-client)</p>
-<p align="center"><a href="#features">Features</a> section describes in detail about Resty capabilities</p>
+<p align="center">Go 的简单的 HTTP 和 REST 客户端库 (灵感来源于 Ruby 的 rest-client)</p>
+<p align="center"><a href="#features">Features</a> 详细描述了 Resty 的功能</p>
 </p>
 <p align="center">
 <p align="center">
@@ -105,12 +105,12 @@
 
 ### Included Batteries
 
-  * Redirect Policies - see [how to use](#redirect-policy)
+  * 重定向策略 - 如何使用查看 [这里](#redirect-policy)
     * NoRedirectPolicy
     * FlexibleRedirectPolicy
     * DomainCheckRedirectPolicy
-    * etc. [more info](redirect.go)
-  * Retry Mechanism [how to use](#retries)
+    * 等等。 [更多信息](redirect.go)
+  * 重试机制，如何使用查看 [这里](#retries)
     * Backoff Retry
     * Conditional Retry
   * SRV Record based request instead of Host URL [how to use](resty_test.go#L1412)
@@ -119,11 +119,12 @@
 
 #### Supported Go Versions
 
-Initially Resty started supporting `go modules` since `v1.10.0` release. 
+最初，Resty 从 `v1.10.0` 版本开始支持`go modules`。 
 
-Starting Resty v2 and higher versions, it fully embraces [go modules](https://github.com/golang/go/wiki/Modules) 
-package release. It requires a Go version capable of understanding `/vN` suffixed imports:
+使用 Resty v2 和更高的版本, 它完全包含 [go modules](https://github.com/golang/go/wiki/Modules) 
+包版本.。
 
+它需要一个能够理解 `/vN` 后缀导入的 Go 版本：
 - 1.9.7+
 - 1.10.3+
 - 1.11+
@@ -131,12 +132,11 @@ package release. It requires a Go version capable of understanding `/vN` suffixe
 
 ## It might be beneficial for your project :smile:
 
-Resty author also published following projects for Go Community.
+Resty 的作者还为 Go 发布了以下项目。
 
-  * [aah framework](https://aahframework.org) - A secure, flexible, rapid Go web framework.
-  * [THUMBAI](https://thumbai.app) - Go Mod Repository, Go Vanity Service and Simple Proxy Server.
-  * [go-model](https://github.com/jeevatkm/go-model) - Robust & Easy to use model mapper and utility methods for 
-  Go `struct`.
+  * [aah framework](https://aahframework.org) - 一个安全、灵活、快速的 Go web 框架。
+  * [THUMBAI](https://thumbai.app) - Go Mod 仓库, Go Vanity 服务和简单的代理服务器。
+  * [go-model](https://github.com/jeevatkm/go-model) - 健壮的，易于使用的 Go `struct` 模型映射器和工具方法。 
 
 
 ## Installation
@@ -534,52 +534,51 @@ client.OnAfterResponse(func(c *resty.Client, resp *resty.Response) error {
 
 #### Redirect Policy
 
-Resty provides few ready to use redirect policy(s) also it supports multiple policies together.
+Resty 提供了一些可以使用重定向策略的选项，而且它支持同时使用多个策略。
 
 ```go
 // 创建一个 Resty Client
 client := resty.New()
 
-// Assign Client Redirect Policy. Create one as per you need
+// 设置 Client 的 Redirect Policy. 根据需要创建一个
 client.SetRedirectPolicy(resty.FlexibleRedirectPolicy(15))
 
-// Wanna multiple policies such as redirect count, domain name check, etc
+// 想要多个策略，如重定向计数，域名检查等
 client.SetRedirectPolicy(resty.FlexibleRedirectPolicy(20),
                         resty.DomainCheckRedirectPolicy("host1.com", "host2.org", "host3.net"))
 ```
 
 ##### Custom Redirect Policy
 
-Implement [RedirectPolicy](redirect.go#L20) interface and register it with resty client. Have a 
-look [redirect.go](redirect.go) for more information.
+实现 [RedirectPolicy](redirect.go#L20) 接口并且使用 resty client 注册它. 更多内容查看 [redirect.go](redirect.go)。
 
 ```go
 // 创建一个 Resty Client
 client := resty.New()
 
-// Using raw func into resty.SetRedirectPolicy
+// 在 resty.SetRedirectPolicy 使用原始函数
 client.SetRedirectPolicy(resty.RedirectPolicyFunc(func(req *http.Request, via []*http.Request) error {
-  // Implement your logic here
+  // 这里实现你的逻辑
 
-  // return nil for continue redirect otherwise return error to stop/prevent redirect
+  // 继续重定向返回 nil ，否则返回 error 以停止/阻止重定向
   return nil
 }))
 
 //---------------------------------------------------
 
-// Using struct create more flexible redirect policy
+// 使用 struct 创建更多的灵活的 redirect policy
 type CustomRedirectPolicy struct {
   // variables goes here
 }
 
 func (c *CustomRedirectPolicy) Apply(req *http.Request, via []*http.Request) error {
-  // Implement your logic here
+  // 这里实现你的逻辑
 
-  // return nil for continue redirect otherwise return error to stop/prevent redirect
+  // 继续重定向返回 nil ，否则返回 error 以停止/阻止重定向
   return nil
 }
 
-// Registering in resty
+// 在 resty 里注册
 client.SetRedirectPolicy(CustomRedirectPolicy{/* initialize variables */})
 ```
 
@@ -589,76 +588,73 @@ client.SetRedirectPolicy(CustomRedirectPolicy{/* initialize variables */})
 // 创建一个 Resty Client
 client := resty.New()
 
-// Custom Root certificates, just supply .pem file.
-// you can add one or more root certificates, its get appended
+// 自定义的 Root 证书, 只需要提供 .pem 文件
+// 你可以添加一个或多个 root 证书
 client.SetRootCertificate("/path/to/root/pemFile1.pem")
 client.SetRootCertificate("/path/to/root/pemFile2.pem")
 // ... and so on!
 
-// Adding Client Certificates, you add one or more certificates
-// Sample for creating certificate object
-// Parsing public/private key pair from a pair of files. The files must contain PEM encoded data.
+// 添加 Client 证书, 你可以添加一个或多个证书
+// 创建 certificate 对象的示例
+// 从一对文件中解析 public/private key. 这些文件必须包含P EM 编码的数据。
 cert1, err := tls.LoadX509KeyPair("certs/client.pem", "certs/client.key")
 if err != nil {
   log.Fatalf("ERROR client certificate: %s", err)
 }
 // ...
 
-// You add one or more certificates
+// 添加一个或多个证书
 client.SetCertificates(cert1, cert2, cert3)
 ```
 
 #### Proxy Settings - Client as well as at Request Level
 
-Default `Go` supports Proxy via environment variable `HTTP_PROXY`. Resty provides support via `SetProxy` & `RemoveProxy`.
-Choose as per your need.
+默认情况下 `Go` 支持从环境变量 `HTTP_PROXY` 获取代理。Resty 提供了 `SetProxy` & `RemoveProxy`，
+根据你的需要来选择代理。
 
-**Client Level Proxy** settings applied to all the request
+**Client Level Proxy** 应用于所有请求的设置
 
 ```go
 // 创建一个 Resty Client
 client := resty.New()
 
-// Setting a Proxy URL and Port
+// 设置一个 Proxy URL 和 Port
 client.SetProxy("http://proxyserver:8888")
 
-// Want to remove proxy setting
+// 移除 proxy 设置
 client.RemoveProxy()
 ```
 
 #### Retries
 
-Resty uses [backoff](http://www.awsarchitectureblog.com/2015/03/backoff.html)
-to increase retry intervals after each attempt.
+Resty 使用 [backoff](http://www.awsarchitectureblog.com/2015/03/backoff.html) 来增加每次尝试后的重试间隔。
 
-Usage example:
+使用示例:
 
 ```go
 // 创建一个 Resty Client
 client := resty.New()
 
-// Retries are configured per client
+// 每个 client 配置重试
 client.
-    // Set retry count to non zero to enable retries
+    // 将重试计数设置为 非零 以启用重试
     SetRetryCount(3).
-    // You can override initial retry wait time.
-    // Default is 100 milliseconds.
+    // 你可以覆盖初始的重试等待时间。
+    // 默认 100 毫秒.
     SetRetryWaitTime(5 * time.Second).
-    // MaxWaitTime can be overridden as well.
-    // Default is 2 seconds.
+    // MaxWaitTime 也可以被覆盖.
+    // 默认是 2 秒.
     SetRetryMaxWaitTime(20 * time.Second).
-    // SetRetryAfter sets callback to calculate wait time between retries.
+    // SetRetryAfter 设置回调函数来计算重试之间的等待时间。
     // Default (nil) implies exponential backoff with jitter
     SetRetryAfter(func(client *Client, resp *Response) (time.Duration, error) {
         return 0, errors.New("quota exceeded")
     })
 ```
 
-Above setup will result in resty retrying requests returned non nil error up to
-3 times with delay increased after each attempt.
+上面的设置，当请求返回非 nil 的 error 时，resty 会重试请求 3 次。
 
-You can optionally provide client with custom retry conditions:
-
+可以选择为 client 提供自定义的重试条件：
 ```go
 // 创建一个 Resty Client
 client := resty.New()
@@ -672,13 +668,11 @@ client.AddRetryCondition(
 )
 ```
 
-Above example will make resty retry requests ended with `429 Too Many Requests`
-status code.
+上面的例子，如果请求以 `429 Too Many requests` 状态码结束，resty 会重试请求。
 
-Multiple retry conditions can be added.
+可以添加多个重试条件。
 
-It is also possible to use `resty.Backoff(...)` to get arbitrary retry scenarios
-implemented. [Reference](retry_test.go).
+还可以使用 `resty.Backoff(...)` 获得任意重试场景的实现。[Reference](retry_test.go)。
 
 #### Allow GET request with Payload
 
@@ -686,7 +680,7 @@ implemented. [Reference](retry_test.go).
 // 创建一个 Resty Client
 client := resty.New()
 
-// Allow GET request with Payload. This is disabled by default.
+// 允许带有 Payload 的 GET 请求。默认是 disabled 的。
 client.SetAllowGetMethodPayload(true)
 ```
 
@@ -713,35 +707,35 @@ client2.R().Head("http://httpbin.org")
 // 创建一个 Resty Client
 client := resty.New()
 
-// Unique settings at Client level
+// Client level 的唯一设置
 //--------------------------------
-// Enable debug mode
+// 启用 debug 模式
 client.SetDebug(true)
 
-// Assign Client TLSClientConfig
-// One can set custom root-certificate. Refer: http://golang.org/pkg/crypto/tls/#example_Dial
+// 设置 Client TLSClientConfig
+// 设置自定义的 root-certificate. 参考: http://golang.org/pkg/crypto/tls/#example_Dial
 client.SetTLSClientConfig(&tls.Config{ RootCAs: roots })
 
-// or One can disable security check (https)
+// 或者禁用安全检查 (https)
 client.SetTLSClientConfig(&tls.Config{ InsecureSkipVerify: true })
 
-// Set client timeout as per your need
+// 根据需要设置 client 超时
 client.SetTimeout(1 * time.Minute)
 
 
-// You can override all below settings and options at request level if you want to
+// 如果你想，你可以在 request level 覆盖下面的所有的设置和选项
 //--------------------------------------------------------------------------------
-// Host URL for all request. So you can use relative URL in the request
+// 设置所有请求的 Host URL。就可以在所有请求中使用相对路径
 client.SetHostURL("http://httpbin.org")
 
-// Headers for all request
+// 设置所有请求的 Headers
 client.SetHeader("Accept", "application/json")
 client.SetHeaders(map[string]string{
         "Content-Type": "application/json",
         "User-Agent": "My custom User Agent String",
       })
 
-// Cookies for all request
+// 设置所有请求的 Cookies
 client.SetCookie(&http.Cookie{
       Name:"go-resty",
       Value:"This is cookie value",
@@ -753,7 +747,7 @@ client.SetCookie(&http.Cookie{
     })
 client.SetCookies(cookies)
 
-// URL query parameters for all request
+// 设置所有请求的 URL query parameters
 client.SetQueryParam("user_id", "00001")
 client.SetQueryParams(map[string]string{ // sample of those who use this manner
       "api_key": "api-key-here",
@@ -761,21 +755,21 @@ client.SetQueryParams(map[string]string{ // sample of those who use this manner
     })
 client.R().SetQueryString("productId=232&template=fresh-sample&cat=resty&source=google&kw=buy a lot more")
 
-// Form data for all request. Typically used with POST and PUT
+// 设置所有请求的 Form data. 通常和 POST and PUT 一起
 client.SetFormData(map[string]string{
     "access_token": "BC594900-518B-4F7E-AC75-BD37F019E08F",
   })
 
-// Basic Auth for all request
+// 设置所有请求的 Basic Auth
 client.SetBasicAuth("myuser", "mypass")
 
-// Bearer Auth Token for all request
+// 设置所有请求的 Bearer Auth Token
 client.SetAuthToken("BC594900518B4F7EAC75BD37F019E08FBC594900518B4F7EAC75BD37F019E08F")
 
-// Enabling Content length value for all request
+// 启用所有请求的 Content length value
 client.SetContentLength(true)
 
-// Registering global Error object structure for JSON/XML request
+// 为 JSON/XML 请求注册全局的 Error 对象结构体
 client.SetError(&Error{})    // or resty.SetError(Error{})
 ```
 
@@ -784,7 +778,7 @@ client.SetError(&Error{})    // or resty.SetError(Error{})
 ```go
 unixSocket := "/var/run/my_socket.sock"
 
-// Create a Go's http.Transport so we can set it in resty.
+// 创建一个 Go 原生的 http.Transport ，这样可以在 resty 中设置它.
 transport := http.Transport{
 	Dial: func(_, _ string) (net.Conn, error) {
 		return net.Dial("unix", unixSocket)
@@ -794,18 +788,17 @@ transport := http.Transport{
 // 创建一个 Resty Client
 client := resty.New()
 
-// Set the previous transport that we created, set the scheme of the communication to the
-// socket and set the unixSocket as the HostURL.
+// 设置之前创建的 transport, 将通信 scheme 设置为套接字，并将 unixSocket 设置为 HostURL。
 client.SetTransport(&transport).SetScheme("http").SetHostURL(unixSocket)
 
-// No need to write the host's URL on the request, just the path.
+// 不需要在请求上写主机的 URL，只需要路径。
 client.R().Get("/index.html")
 ```
 
 #### Bazel support
 
-Resty can be built, tested and depended upon via [Bazel](https://bazel.build).
-For example, to run all tests:
+Resty 可以通过 [Bazel](https://bazel.build) 构建、测试和依赖 .
+例如，运行所有 test:
 
 ```shell
 bazel test :go_default_test
@@ -813,21 +806,18 @@ bazel test :go_default_test
 
 #### Mocking http requests using [httpmock](https://github.com/jarcoal/httpmock) library
 
-In order to mock the http requests when testing your application you
-could use the `httpmock` library.
-
-When using the default resty client, you should pass the client to the library as follow:
+为了在测试应用程序时模拟 http 请求，可以使用 `httpmock` 库。
+当使用默认 resty client, 要把 client 传递给库，像下面这样:
 
 ```go
 // 创建一个 Resty Client
 client := resty.New()
 
-// Get the underlying HTTP Client and set it to Mock
+// 获取底层的 HTTP Client，并设置为 Mock
 httpmock.ActivateNonDefault(client.GetClient())
 ```
 
-More detailed example of mocking resty http requests using ginko could be 
-found [here](https://github.com/jarcoal/httpmock#ginkgo--resty-example).
+使用 ginko 模拟 resty http 请求的更详细示例在 [这里](https://github.com/jarcoal/httpmock#ginkgo--resty-example)。
 
 ## Versioning
 
