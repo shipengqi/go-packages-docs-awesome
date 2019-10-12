@@ -10,3 +10,6 @@ Go 项目一些常用包的中文文档，包括 Gin，Dep，Cobra 等。
 - [logrus 中文文档](./docs/logrus)
 - [resty 中文文档](./docs/resty)
 - [gRPC 官方文档中文版](http://doc.oschina.net/grpc)
+- GORM 中文文档
+  - https://books.studygolang.com/gorm/
+  - https://jasperxu.github.io/gorm-zh/
