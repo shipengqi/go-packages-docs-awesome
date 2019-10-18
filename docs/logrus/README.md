@@ -54,7 +54,7 @@ time="2015-03-26T01:27:38-04:00" level=fatal msg="The ice breaks!" err=&{0x20822
 
 #### Logging Method Name
 
-如果希望添加一个字段记录被调用是的 method，通过以下方式通知 logger：
+如果希望添加一个 `method` 字段**记录被调用时的方法**，通过以下方式：
 ```go
 log.SetReportCaller(true)
 ```
