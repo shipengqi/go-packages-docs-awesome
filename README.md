@@ -2,6 +2,7 @@
 Go 项目一些常用包的中文文档，包括 Gin，Dep，Cobra 等。
 
 ## 目录
+- [Awesome go 中文](https://github.com/yinggaozhen/awesome-go-cn)
 - [Gin 中文文档](./docs/Gin)
 - [Cobra 中文文档](./docs/Cobra)
 - [Dep 中文文档](./docs/Dep)
