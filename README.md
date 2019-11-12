@@ -16,3 +16,4 @@ Go 项目一些常用包的中文文档，包括 Gin，Dep，Cobra 等。
   - https://learnku.com/docs/gorm/2018
   - https://books.studygolang.com/gorm/
   - https://jasperxu.github.io/gorm-zh/
+- [go-ini/ini 中文文档](https://ini.unknwon.io/docs/intro)  
