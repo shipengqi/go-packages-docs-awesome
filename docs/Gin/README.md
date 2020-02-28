@@ -1273,7 +1273,7 @@ func main() {
 ### HTML 渲染
 ### HTML rendering
 
-使用 LoadHTMLGlob() 或者 LoadHTMLFiles()
+使用 `LoadHTMLGlob()` 或者 `LoadHTMLFiles()`
 
 ```go
 func main() {
@@ -1304,7 +1304,22 @@ func main() {
 </html>
 ```
 
-使用不同文件夹相同名称的 HTML 模板
+#### 渲染原生 HTML
+```go
+g.LoagHTMLFiles(filepath.Join(staticPath, "index.html"))
+
+router.GET("/", func(c *gin.Context) {
+    c.HTML(http.StatusOK, "index.html", nil)
+})
+
+// 或者
+router.GET("/", func(c *gin.Context) {
+   c.File(filepath.Join(staticPath, "index.html"))
+})
+```
+
+#### 使用不同文件夹相同名称的 HTML 模板
+
 
 ```go
 func main() {
