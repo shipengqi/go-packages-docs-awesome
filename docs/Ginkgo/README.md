@@ -53,9 +53,10 @@ $ ginkgo bootstrap
 package books_test
 
 import (
-    . "github.com/onsi/ginkgo"
-    . "github.com/onsi/gomega"
-    "testing"
+	"testing"
+	
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 func TestBooks(t *testing.T) {
@@ -68,5 +69,58 @@ func TestBooks(t *testing.T) {
 - Go 允许我们在 books 包中声明 books_test 包。使用 books_test 替代 books 允许我们遵守 books 包的封装性：你的测试将要导入 books 并且从外部使用它，就像其他包一样。当让，如果你想要进入包内部来测试它内部组件并进行跟多行为测试的话，你可以选择将 package books_test 换成 package books 。
 - 我们使用 dot-import 将 ginkgo 和 gomega 包导入到了顶级命名空间。如果你不想这样做的话，查看下面的 避免 Dot Imports 。
 - TestBooks 是一个 testing 测试.你运行 go test 或 ginkgo 的时候 Go 测试执行器会执行这个函数。
-- RegisterFailHandler(Fail) ： 一个 Ginkgo 测试调用 Ginkgo 的 Fail(description string) 函数发出失败信号。我们使用RegisterFailHandler 将这个函数传给 Gomega 。这是 Ginkgo 和 Gomega 唯一的连接点。
+- RegisterFailHandler(Fail) ： 一个 Ginkgo 测试调用 Ginkgo 的 Fail(description string) 函数发出失败信号。我们使用 RegisterFailHandler 将这个函数传给 Gomega 。这是 Ginkgo 和 Gomega 唯一的连接点。
 - RunSpecs(t *testing.T, suiteDescription string) 告诉 Ginkgo 开始这个测试套件。如果任意 specs（说明）失败了，Ginkgo 会自动使 testing.T 失败。
+
+At this point you can run your suite:
+
+```sh
+$ ginkgo # or go test
+
+=== RUN TestBootstrap
+
+Running Suite: Books Suite
+==========================
+Random Seed: 1378936983
+
+Will run 0 of 0 specs
+
+
+Ran 0 of 0 Specs in 0.000 seconds
+SUCCESS! -- 0 Passed | 0 Failed | 0 Pending | 0 Skipped
+
+--- PASS: TestBootstrap (0.00 seconds)
+PASS
+ok      books   0.019s
+```
+
+### Adding Specs to a Suite
+An empty test suite is not very interesting. While you can start to add tests directly into books_suite_test.go you’ll probably prefer to separate your tests into separate 
+files (especially for packages with multiple files). Let’s add a test file for our book.go model:
+```sh
+$ ginkgo generate book
+```
+
+This will generate a file named book_test.go containing:
+
+```go
+package books_test
+
+import (
+    "/path/to/books"
+    . "github.com/onsi/ginkgo"
+    . "github.com/onsi/gomega"
+)
+
+var _ = Describe("Book", func() {
+
+})
+```
+
+Let’s break this down:
+- We import the ginkgo and gomega packages into the top-level namespace. While incredibly convenient, this is not - strictly speaking - necessary. 
+  If youd like to avoid this check out the Avoiding Dot Imports section below.
+- Similarly, we import the books package since we are using the special books_test package to isolate our tests from our code. For convenience we import the books package into the namespace. 
+  You can opt out of either these decisions by editing the generated test file.
+- We add a top-level describe container using Ginkgo’s Describe(text string, body func()) bool function. The var _ = ... trick allows us to evaluate 
+  the Describe at the top level without having to wrap it in a func init() {}
