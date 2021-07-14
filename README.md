@@ -21,3 +21,4 @@ Go 项目一些常用包的中文文档，包括 Gin，Dep，Cobra 等。
 - [GoConvey 中文文档](./docs/Goconvey)
 - [Ginkgo 官方文档中文版](https://ke-chain.github.io/ginkgodoc/)
 - [Gomega 中文文档](./docs/Gomega)
+- [Hugo 中文文档](./docs/Hugo)
