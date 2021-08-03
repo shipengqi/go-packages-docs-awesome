@@ -22,3 +22,6 @@ Go 项目一些常用包的中文文档，包括 Gin，Dep，Cobra 等。
 - [Ginkgo 官方文档中文版](https://ke-chain.github.io/ginkgodoc/)
 - [Gomega 中文文档](./docs/Gomega)
 - [Hugo 中文文档](./docs/Hugo)
+- [Iris 中文文档](./docs/Iris)
+- [gobwas/ws 中文文档](./docs/ws)
+- [bwmarrin/snowflake 中文文档](./docs/snowflake)
