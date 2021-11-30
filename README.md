@@ -6,7 +6,7 @@ Go 项目一些常用包的中文文档，包括 Gin，Dep，Cobra 等。
 - [Gin 中文文档](./docs/Gin)
   - [Gin 官方文档中文版](https://gin-gonic.com/zh-cn/docs/)
 - [Cobra 中文文档](./docs/Cobra)
-- [Dep 中文文档](./docs/Dep)
+- ~~[Dep 中文文档](./docs/Dep)~~
 - [pflag 中文文档](./docs/pflag)
 - [viper 中文文档](./docs/viper)
 - [logrus 中文文档](./docs/logrus)
